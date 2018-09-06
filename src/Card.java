@@ -1,66 +1,73 @@
 public class Card {
 
     public enum Suite {
-        HEARTS, DIAMONDS, SPADES, CLUBS;
+        SPADES(1), CLUBS(2), DIAMONDS(3),  HEARTS(4);
+
+        private int value;
+
+        Suite(int value) {
+            this.value = value;
+        }
+
+        public Integer getSuiteValue() {
+            return value;
+        }
     }
 
-    private int rank;
+    public enum Rank {
+        TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK(11), QUEEN(12), KING(13), ACE(14);
+
+        private int value;
+
+        Rank(int value) {
+            this.value = value;
+        }
+
+        public Integer getRankValue() {
+            return value;
+        }
+    }
+
+    private Rank rank;
     private Suite suite;
 
-    public Card() {
-        this(-1, null);
-    }
 
-    public Card(int rank, Suite suite) {
-        setRank(rank);
-        setSuite(suite);
-    }
+    public Card() {}
 
-    public void setRank(int rank) {
-        if (rank < 1 || rank > 13)
-            throw new IllegalArgumentException("Card rank out of bounds");
-        else
-            this.rank = rank;
-    }
-
-    public void setSuite(Suite suite) {
+    public Card(Rank rank, Suite suite) {
+        this.rank = rank;
         this.suite = suite;
-    }
-
-    public int getRank() {
-        return rank;
     }
 
     public Suite getSuite() {
         return suite;
     }
 
-    public String getRankString() {
-        if (rank < 10)
-            return Integer.toString(rank);
-        else
-            switch(rank) {
-                case 9: return "Ten";
-                case 10: return "Jack";
-                case 11: return "Queen";
-                case 12: return "King";
-                case 13: return "Ace";
-                default: return "xx";
-            }
+    public Rank getRank() {
+        return rank;
+    }
+
+    public Integer getRankValue() {
+        return rank.getRankValue();
+    }
+
+    public Integer getSuiteValue() {
+        return suite.getSuiteValue();
     }
 
     public String toString() {
-        return (getRankString() + " of " + getSuite());
+        return (rank + " of " + suite + " value: " + rank.getRankValue());
     }
 
 
     public static void main(String[] args) {
-        Card c1 = new Card(11, Suite.DIAMONDS);
-        Card c2 = new Card(5, Suite.CLUBS);
-        Card c3 = new Card(13, Suite.HEARTS);
+        Card c1 = new Card(Rank.ACE, Suite.SPADES);
         System.out.println(c1);
+        Card c2 = new Card(Rank.EIGHT, Suite.CLUBS);
         System.out.println(c2);
-        System.out.println(c3);
-
+        System.out.println(c2.getRank());
+        System.out.println(c1.getSuite());
+        System.out.println(c2.getRankValue());
+        System.out.println(c1.getSuiteValue());
     }
 }
