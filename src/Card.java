@@ -32,7 +32,9 @@ public class Card {
     private Suite suite;
 
 
-    public Card() {}
+    public Card() {
+        this(null, null);
+    }
 
     public Card(Rank rank, Suite suite) {
         this.rank = rank;
@@ -55,8 +57,9 @@ public class Card {
         return suite.getSuiteValue();
     }
 
+    @Override
     public String toString() {
-        return (rank + " of " + suite + " value: " + rank.getRankValue());
+        return (rank + " of " + suite);
     }
 
 
