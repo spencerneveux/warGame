@@ -62,15 +62,4 @@ public class Card {
         return (rank + " of " + suite);
     }
 
-
-    public static void main(String[] args) {
-        Card c1 = new Card(Rank.ACE, Suite.SPADES);
-        System.out.println(c1);
-        Card c2 = new Card(Rank.EIGHT, Suite.CLUBS);
-        System.out.println(c2);
-        System.out.println(c2.getRank());
-        System.out.println(c1.getSuite());
-        System.out.println(c2.getRankValue());
-        System.out.println(c1.getSuiteValue());
-    }
 }
