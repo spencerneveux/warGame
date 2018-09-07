@@ -104,6 +104,6 @@ public class Deck extends Card {
      */
     public void addPile(ArrayList<Card> list) {
         deckArray.addAll(list);
-        deckArray.size();
+        size = deckArray.size();
     }
 }

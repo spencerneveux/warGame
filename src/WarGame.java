@@ -22,19 +22,7 @@ public class WarGame {
 
     public static void main(String[] args) {
         new WarGame();
-        System.out.println(deck.getSize());
         game();
-
-    }
-
-    /**
-     * Display Main menu to users
-     */
-    public static void displayScreen() {
-        System.out.println("Welcome to WAR!!!");
-        System.out.println("1. Start Game");
-        System.out.println("2. Quit");
-        System.out.println();
     }
 
     /**
@@ -53,8 +41,12 @@ public class WarGame {
     }
 
 
-
+    /**
+     * Method to play individual rounds
+     * calls war method if players meet war requirements
+     */
     public static void play() {
+
         // Each player plays one card
         Card p1Card = player1.deal();
         System.out.println("Player one's card is " + p1Card);
@@ -64,39 +56,52 @@ public class WarGame {
         System.out.println("Player two's card is " + p2Card);
         pile.add(p2Card);
 
-
         // If player 1 wins, give him the pile
         if (p1Card.getRankValue() > p2Card.getRankValue()) {
             System.out.println("Player 1 wins the round");
             player1.addPile(pile);
-            pile.clear();
         }
 
         // Player 2 wins, give him/her the pile
         else if (p2Card.getRankValue() > p1Card.getRankValue()) {
             System.out.println("Player 2 wins the round");
             player2.addPile(pile);
-            pile.clear();
         }
 
-        //WARRRR
+        //WAR
         else {
             war();
         }
+
+        // Empty the pile
+        pile.clear();
     }
 
+    /**
+     * In the event of two matching cards, deal out three face down
+     * deal fourth card up and determine who wins
+     * if matching again repeat war
+     */
     public static void war() {
         System.out.println("WARRRRRR!!!!!");
 
         boolean flag = true;
         while (flag) {
 
-            // Deal two cards face down to the pile
-            for (int i = 0; i < 2; i++) {
-                System.out.println("War card for player 1 is xx");
-                System.out.println("War card for player 2 is xx");
-                pile.add(player1.deal());
-                pile.add(player2.deal());
+            // Check to see if both players can play war
+            if (player1.getSize() >= 4 && player2.getSize() >= 4) {
+                warDeal();
+            }
+            else if (player1.getSize() < 4) {
+                System.out.println("Player 1 doesn't have enough cards");
+                emptyHand(player1);
+                break;
+            }
+
+            else if (player2.getSize() < 4) {
+                System.out.println("Player two doesn't have enough cards");
+                emptyHand(player2);
+                break;
             }
 
             // Deal last card from both players & determine who wins war
@@ -126,29 +131,59 @@ public class WarGame {
     }
 
 
+    /**
+     * Method to deal out cards when war occurs
+     */
+    public static void warDeal() {
+        for (int i = 0; i < 3; i++) {
+            System.out.println("War card for player 1 is xx");
+            System.out.println("War card for player 2 is xx");
+            pile.add(player1.deal());
+            pile.add(player2.deal());
+        }
+    }
+
+    /**
+     * If player has less than enough cards to play war
+     * empty the rest to the pile
+     * @param deck deck of cards representing either players hand
+     */
+    public static void emptyHand(Deck deck) {
+        int size = deck.getSize();
+        for (int i = 0; i < size; i++) {
+            pile.add(deck.deal());
+        }
+    }
+
+    /**
+     * Determine if a player wins
+     * a player loses if
+     * @return boolean value whether or not there is a winner
+     */
     public static boolean winner() {
-        if (player1.getSize() == 52){
-            System.out.println("Player 1 is the WINNER!!!");
-            System.out.println("Player one hand\n" + player1.getSize());
-            System.out.println("Player two hand\n" + player2.getSize());
+        if (player1.getSize() == 0){
             System.out.println("Game Over");
+            System.out.println("Player 2 is the WINNER!!!");
             return true;
         }
-        else if (player2.getSize() == 52) {
-            System.out.println("Player 2 is the WINNER!!!");
-            System.out.println("Player one hand\n" + player1.getSize());
-            System.out.println("Player two hand\n" + player2.getSize());
+        else if (player2.getSize() == 0) {
             System.out.println("Game Over");
+            System.out.println("Player 1 is the WINNER!!!");
             return true;
         }else {
             return false;
         }
     }
 
+
+    /**
+     * Method to start game and run logic
+     */
     public static void game() {
         dealHands();
         boolean gameOver = false;
         while(!gameOver) {
+            System.out.println(player1.getSize() + " " + player2.getSize());
             play();
             gameOver = winner();
         }
