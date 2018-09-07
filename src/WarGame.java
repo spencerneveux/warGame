@@ -183,7 +183,6 @@ public class WarGame {
         dealHands();
         boolean gameOver = false;
         while(!gameOver) {
-            System.out.println(player1.getSize() + " " + player2.getSize());
             play();
             gameOver = winner();
         }
