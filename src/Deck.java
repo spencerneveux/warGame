@@ -1,3 +1,10 @@
+/**
+ * Spencer Neveux
+ * 9/10/18
+ * This program creates a deck of cards using arraylist
+ *
+ */
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
