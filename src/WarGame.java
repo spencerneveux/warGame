@@ -1,3 +1,11 @@
+/**
+ * Spencer Neveux
+ * 9/10/18
+ * This program plays out the card game war,
+ * utilizing a card class and a deck class
+ * The output is a sequence of rounds of war until one player wins
+ */
+
 import java.util.ArrayList;
 
 /**
@@ -115,12 +123,12 @@ public class WarGame {
 
             // if P1 wins
             if (p1WarCard.getRankValue() > p2WarCard.getRankValue()) {
-                System.out.println("Player 1 won");
+                System.out.println("Player 1 wins war round");
                 player1.addPile(pile);
                 pile.clear();
                 flag = false;
             } else if (p2WarCard.getRankValue() > p1WarCard.getRankValue()) {
-                System.out.println("Player 2 won");
+                System.out.println("Player 2 wins war round");
                 player2.addPile(pile);
                 pile.clear();
                 flag = false;
